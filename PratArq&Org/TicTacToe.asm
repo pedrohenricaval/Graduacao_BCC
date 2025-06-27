@@ -277,7 +277,11 @@ verifyLine1:
 	jmp winGame
 	
 verifyLine2:
-	add r0, r0, r1
+	loadn r0, #valueArray
+	loadn r6, #3
+	
+	add r0, r0, r6
+	
 	loadi r2, r0
 	cmp r2, r7
 	jne verifyLine3
@@ -295,7 +299,11 @@ verifyLine2:
 	jmp winGame
 	
 verifyLine3:
-	add r0, r0, r1
+	loadn r0, #valueArray
+	loadn r6, #6
+	
+	add r0, r0, r6
+	
 	loadi r2, r0
 	cmp r2, r7
 	jne verifyDiagonal1
@@ -425,8 +433,8 @@ winGame:
  	
  	load r0, marker
  	load r3, X_SYMBOL
- 	cmp r0, r1
- 	jeq oWon
+ 	cmp r0, r3
+ 	jne oWon
  	
  	loadn r1, #xSymbol
  	loadn r2, #571
