@@ -5,6 +5,7 @@ starterMenuWelcome : string "Bem-vindo(a)"
 starterMenuInstruction : string "Pressione Espaco para jogar"
 
 winGameString : string "Ganhou o Jogo!!"
+replayString : string "Pressione Espaco para jogar novamente"
 
 xSymbol : string " X "
 oSymbol : string " O "
@@ -437,21 +438,61 @@ winGame:
  	jne oWon
  	
  	loadn r1, #xSymbol
- 	loadn r2, #571
+ 	loadn r2, #531
  	call printScreen
  	jmp winString
  	
  	oWon:
  		loadn r1, #oSymbol
- 		loadn r2, #571
+ 		loadn r2, #531
  		call printScreen
  		
  	winString:
 	 	loadn r1, #winGameString
-	 	loadn r2, #574
+	 	loadn r2, #534
 	 	call printScreen
- 	
- 	halt
+	 	
+	loadn r1, #replayString
+	loadn r2, #642
+	call printScreen
+	
+	readLoopReplay:
+		load r2, SPACE
+		inchar r0
+		
+		cmp r2, r0
+		jne readLoopReplay
+		
+	; Reseta valueArray + counter
+	
+	
+	loadn r0, #valueArray
+	loadn r1, #0
+	 
+	storei r0, r1 ;[0]
+	inc r0
+	storei r0, r1 ;[1]
+	inc r0
+	storei r0, r1 ;[2]
+	inc r0
+	storei r0, r1 ;[3]
+	inc r0
+	storei r0, r1 ;[4]
+	inc r0
+	storei r0, r1 ;[5]
+	inc r0
+	storei r0, r1 ;[6]
+	inc r0
+	storei r0, r1 ;[7]
+	inc r0
+	storei r0, r1 ;[8]
+	inc r0
+	
+	loadn r0, #counter
+	storei r0, r1 
+		
+	call eraseScreen
+	jmp main
  	
 tieResult:
 	call eraseScreen
